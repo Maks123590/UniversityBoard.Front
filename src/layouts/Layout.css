@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+height: 85px;
+}
+
+.menu {
+  line-height: 80px;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer {
+    text-align: center;
+}
