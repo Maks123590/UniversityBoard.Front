@@ -10,9 +10,9 @@ import * as styles from './Layout.css';
 
 const { Footer, Content } = AntdLayout;
 
-const Layout = ({ children }) => (
+const Layout = ({ location, children }) => (
   <AntdLayout className={styles.layout}>
-    <Header>
+    <Header location={location}>
       {'Header'}
     </Header>
     <Content className={styles.Content}>
@@ -26,6 +26,9 @@ const Layout = ({ children }) => (
 
 Layout.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
 };
 
 export default Layout;

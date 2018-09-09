@@ -1,24 +1,32 @@
+import studentsList from '../stubs/students';
+import { getPath } from '../utils/pathManager';
+
 export default {
+  namespace: 'students',
+  state: {
+    list: [],
+  },
 
-  namespace: 'example',
-
-  state: {},
-
-  subscriptions: {
-    setup({ dispatch, history }) {  // eslint-disable-line
+  reducers: {
+    saveStudents(state, { payload: { students } }) {
+      return { ...state, list: students };
     },
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'save' });
+    *getStudents({ payload }, { call, put }) {  // eslint-disable-line
+      console.log(studentsList.length);
+      yield put({ type: 'saveStudents', payload: { students: studentsList } });
     },
   },
 
-  reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload };
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname }) => {
+        if (pathname === getPath('students')) {
+          dispatch({ type: 'getStudents', payload: {} });
+        }
+      });
     },
   },
-
 };
