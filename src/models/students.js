@@ -1,4 +1,7 @@
-import studentsList from '../stubs/students';
+// import studentsList from '../stubs/students';
+
+import * as studentServices from '../services/students';
+
 import { getPath } from '../utils/pathManager';
 
 export default {
@@ -14,8 +17,9 @@ export default {
   },
 
   effects: {
-    *getStudents({ payload }, { call, put }) {  // eslint-disable-line
-      console.log(studentsList.length);
+    * getStudents(_, { call, put }) {
+      const { data: studentsList } = yield call(studentServices.getStudents, {});
+
       yield put({ type: 'saveStudents', payload: { students: studentsList } });
     },
   },
