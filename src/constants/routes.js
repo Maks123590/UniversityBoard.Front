@@ -11,4 +11,10 @@ export default [
     name: 'Группы',
     isRoout: true,
   },
+  {
+    value: 'exams',
+    path: '/exams',
+    name: 'Экзамены',
+    isRoout: true,
+  },
 ];

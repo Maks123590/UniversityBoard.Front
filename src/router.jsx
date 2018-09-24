@@ -7,6 +7,7 @@ import {
 import Students from './routes/Students/Students';
 
 import { getPath } from './utils/pathManager';
+import Groups from './routes/Groups';
 
 const { ConnectedRouter } = routerRedux;
 
@@ -18,6 +19,7 @@ function RouterConfig({ history }) {
           <Redirect to={getPath('students')} />
         </Route>
         <Route path={getPath('students')} exact component={Students} />
+        <Route path={getPath('groups')} exact component={Groups} />
       </Switch>
     </ConnectedRouter>
   );

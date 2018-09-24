@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout, Menu } from 'antd';
 
+import { Link } from 'dva/router';
 import Logo from '../Logo/Logo';
 import styles from '../../Layout.css';
 
@@ -22,7 +23,11 @@ const Header = ({ location }) => {
       >
         <Item key="0"><Logo /></Item>
         {routes.filter(route => route.isRoout === true).map(route => (
-          <Item key={route.path}>{route.name}</Item>
+          <Item key={route.path}>
+            <Link to={route.path}>
+              {route.name}
+            </Link>
+          </Item>
         ))}
       </Menu>
     </HeaderAntd>
