@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table, Button } from 'antd';
+import { Table, Button, Avatar } from 'antd';
 
 const { Column } = Table;
 
@@ -32,7 +32,10 @@ class GroupsList extends Component {
           dataIndex="head"
           key="head"
           render={head => (
-            `${head.lastName} ${head.firstName} ${head.middleName}`
+            <Fragment>
+              <Avatar icon="user" shape="square" style={{ marginRight: '4%' }} />
+              {`${head.lastName} ${head.firstName} ${head.middleName}`}
+            </Fragment>
           )}
         />
         <Column

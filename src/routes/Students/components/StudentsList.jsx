@@ -27,6 +27,21 @@ class StudentsList extends Component {
               {`${record.lastName} ${record.firstName} ${record.middleName}`}
             </Fragment>
           )}
+          sorter={(a, b) => {
+            const str1 = `${a.lastName} ${a.firstName} ${a.middleName}`;
+            const str2 = `${b.lastName} ${b.firstName} ${b.middleName}`;
+
+            if (str1 < str2) {
+              return -1;
+            }
+
+            if (str1 > str2) {
+              return 1;
+            }
+
+            return 0;
+          }
+          }
         />
         <Column
           title="Дата рождения"
@@ -42,6 +57,8 @@ class StudentsList extends Component {
           title="Группа"
           dataIndex="group"
           key="group"
+          render={group => group.number}
+          sorter={(a, b) => Number(a.group.number) - Number(b.group.number)}
         />
         <Column
           title="Действия"
