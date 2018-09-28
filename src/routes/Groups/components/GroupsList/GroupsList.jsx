@@ -23,6 +23,12 @@ class GroupsList extends Component {
           key="number"
         />
         <Column
+          title="Направление"
+          key="educationalDirection"
+          dataIndex="educationalDirection"
+          render={educationalDirection => educationalDirection && educationalDirection.name}
+        />
+        <Column
           title="Дата создания"
           dataIndex="formationDate"
           key="formationDate"
