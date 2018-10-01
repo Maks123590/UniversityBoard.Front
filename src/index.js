@@ -10,6 +10,8 @@ const app = dva();
 // 3. Model
 app.model(require('./models/students').default);
 app.model(require('./models/groups').default);
+app.model(require('./models/academicDisciplines').default);
+app.model(require('./models/switches').default);
 
 // 4. Router
 app.router(require('./router').default);

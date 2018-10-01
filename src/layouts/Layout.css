@@ -15,6 +15,11 @@ height: 80px;
   padding: 0;
 }
 
+.content {
+  height: calc(100% - 150px);
+}
+
 .footer {
-    text-align: center;
+  height: 70px;
+  text-align: center;
 }

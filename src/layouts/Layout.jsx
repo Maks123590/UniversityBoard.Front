@@ -15,7 +15,7 @@ const Layout = ({ location, children }) => (
     <Header location={location}>
       {'Header'}
     </Header>
-    <Content className={styles.Content}>
+    <Content className={styles.content}>
       {children}
     </Content>
     <Footer className={styles.footer}>

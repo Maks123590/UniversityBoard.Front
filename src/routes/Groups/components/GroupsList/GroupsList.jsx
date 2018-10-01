@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table, Button, Avatar } from 'antd';
+import {
+  Table, Button, Avatar,
+} from 'antd';
 
 const { Column } = Table;
 
@@ -21,6 +23,12 @@ class GroupsList extends Component {
           title="Номер"
           dataIndex="number"
           key="number"
+          render={number => (
+            <Fragment>
+              <Avatar icon="team" style={{ marginRight: 10 }} />
+              {`${number}`}
+            </Fragment>
+          )}
         />
         <Column
           title="Направление"

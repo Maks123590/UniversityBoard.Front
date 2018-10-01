@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../layouts/Layout';
-import Menu from './components/Menu';
+import GroupsMenu from './components/GroupsMenu';
+
 
 class Exams extends PureComponent {
   render() {
     const { location } = this.props;
     return (
       <Layout location={location}>
-        <Menu />
+        <GroupsMenu />
       </Layout>
     );
   }

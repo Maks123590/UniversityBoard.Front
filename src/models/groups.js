@@ -27,7 +27,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
-        if (pathname === getPath('groups')) {
+        if (pathname === getPath('groups') || pathname === getPath('exams')) {
           dispatch({ type: 'getGroups', payload: {} });
         }
       });
