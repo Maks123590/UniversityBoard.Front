@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../layouts/Layout';
-import StudentsList from './components/index';
+import StudentsList from './components/StudentsList/index';
+import StudentModalForm from './components/StudentModalForm/index';
 
 class Students extends PureComponent {
   render() {
@@ -9,6 +10,7 @@ class Students extends PureComponent {
     return (
       <Layout location={location}>
         <StudentsList />
+        <StudentModalForm />
       </Layout>
     );
   }

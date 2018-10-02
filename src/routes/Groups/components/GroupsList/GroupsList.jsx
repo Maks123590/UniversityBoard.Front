@@ -69,6 +69,9 @@ class GroupsList extends Component {
               <Button type="ghost" icon="delete">
                 {'Удалить'}
               </Button>
+              <Button type="ghost" icon="solution">
+                {'Состав'}
+              </Button>
             </Button.Group>)}
         />
       </Table>
