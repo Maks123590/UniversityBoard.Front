@@ -6,6 +6,7 @@ const instance = axios.create({
   headers: {
     post: { 'Content-Type': 'application/json' },
     put: { 'Content-Type': 'application/json' },
+    get: { 'Access-Control-Allow-Origin': '*' },
   },
 });
 

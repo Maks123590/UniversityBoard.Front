@@ -3,10 +3,7 @@ export default {
   state: {
     groupMenuActiveKey: '1',
     historyPanelVisible: false,
-    studentFrom: {
-      visible: false,
-      studentId: null,
-    },
+    studentFrom: false,
   },
 
   reducers: {
@@ -16,13 +13,10 @@ export default {
     switchHistoryPanelVisible(state) {
       return { ...state, historyPanelVisible: !state.historyPanelVisible };
     },
-    switchstudentFromVisible(state, { payload: { studentId } }) {
+    switchstudentFromVisible(state) {
       return {
         ...state,
-        studentFrom: {
-          visible: !state.studentFrom.visible,
-          studentId,
-        },
+        studentFrom: !state.studentFrom,
       };
     },
   },

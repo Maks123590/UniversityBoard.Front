@@ -39,6 +39,7 @@ class StudentsList extends PureComponent {
               style={{ marginLeft: 2 }}
               onClick={() => {
                 dispatch({ type: 'switches/switchstudentFromVisible', payload: { studentId: null } });
+                dispatch({ type: 'students/clearOneStudent' });
               }}
             >
               {'Новый студент'}
@@ -85,6 +86,7 @@ class StudentsList extends PureComponent {
                   icon="edit"
                   onClick={() => {
                     dispatch({ type: 'switches/switchstudentFromVisible', payload: { studentId: id } });
+                    dispatch({ type: 'students/getStudent', payload: { studentId: id } });
                   }}
                 >
                   {'Редактировать'}

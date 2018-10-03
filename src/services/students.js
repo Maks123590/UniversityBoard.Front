@@ -8,4 +8,12 @@ export async function getStudents() {
   return result;
 }
 
+export async function getStudent(id) {
+  const result = await request({
+    url: `Students/${id}`,
+    method: 'GET',
+  });
+  return result;
+}
+
 export default getStudents;
