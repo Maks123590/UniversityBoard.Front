@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import {
   Table, Button, Avatar,
@@ -40,17 +41,23 @@ class GroupsList extends Component {
           title="Дата создания"
           dataIndex="formationDate"
           key="formationDate"
+          render={formationDate => moment(formationDate).format('MM.DD.YYYY')}
         />
         <Column
           title="Староста"
           dataIndex="head"
           key="head"
-          render={head => (
-            <Fragment>
-              <Avatar icon="user" shape="square" style={{ marginRight: '4%' }} />
-              {`${head.lastName} ${head.firstName} ${head.middleName}`}
-            </Fragment>
-          )}
+          render={(head) => {
+            if (head) {
+              return (
+                <Fragment>
+                  <Avatar icon="user" shape="square" style={{ marginRight: '4%' }} />
+                  {`${head.lastName} ${head.firstName} ${head.middleName}`}
+                </Fragment>
+              );
+            }
+            return 'Не назначен';
+          }}
         />
         <Column
           title="Количество студентов"

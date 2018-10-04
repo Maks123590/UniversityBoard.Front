@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import {
-  Modal, Button, Form, Input, Radio, DatePicker, InputNumber, Select,
+  Modal, Button, Form, Input, Radio, DatePicker, InputNumber, Select, message,
 } from 'antd';
 
 import { smaleItemLayout, largeLabelItemLayout } from './styleConstants';
@@ -15,9 +16,27 @@ class StudentModalForm extends Component {
   }
 
   handleOk = () => {
-    // TODO submit
-    const { form } = this.props;
+    const {
+      form, dispatch, student,
+    } = this.props;
 
+    form.validateFields((err, values) => {
+      if (!err) {
+        const messageBody = {
+          ...values,
+        };
+        if (student.id === null) {
+          dispatch({ type: 'students/createStudent', payload: { values: { ...messageBody } } });
+          message.success(`Студент ${values.lastName} ${values.firstName} ${values.middleName} добавлен в базу`);
+        } else {
+          messageBody.id = student.id;
+          dispatch({ type: 'students/updateStudent', payload: { values: { ...messageBody } } });
+          message.success('Изменено');
+        }
+      }
+    });
+
+    dispatch({ type: 'switches/switchstudentFromVisible' });
     form.resetFields();
   }
 
@@ -42,9 +61,11 @@ class StudentModalForm extends Component {
         onOk={this.handleOk}
         onCancel={this.handleCancel}
         footer={[
-          <Button key="back" onClick={this.handleCancel}>Return</Button>,
           <Button key="submit" type="primary" onClick={this.handleOk}>
-            {'Submit'}
+            {'Подтвердить'}
+          </Button>,
+          <Button key="back" onClick={this.handleCancel}>
+            {'Закрыть'}
           </Button>,
         ]}
       >
@@ -112,7 +133,7 @@ class StudentModalForm extends Component {
                   message: 'введите дату рождения',
                 },
               ],
-              initialValue: null,
+              initialValue: moment(student.birthDay),
             })(
               <DatePicker name="birthDay" />,
             )}
@@ -131,14 +152,14 @@ class StudentModalForm extends Component {
             )}
           </Form.Item>
           <Form.Item label="Дата выдачи" {...largeLabelItemLayout}>
-            {getFieldDecorator('issueDate', {
+            {getFieldDecorator('studentCardIssueDate', {
               rules: [
                 {
                   required: true,
                   message: 'введите дату выдачи студенческого билета',
                 },
               ],
-              initialValue: null,
+              initialValue: moment(student.studentCardIssueDate),
             })(
               <DatePicker name="issueDate" />,
             )}

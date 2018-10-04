@@ -1,7 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
-import { Table, Button, Avatar } from 'antd';
+import {
+  Table, Button, Avatar, Popconfirm, message,
+} from 'antd';
 import ExamHistoryPanel from '../ExamsHistoryPanel';
 
 const { Column } = Table;
@@ -62,6 +65,7 @@ class StudentsList extends PureComponent {
             title="Дата рождения"
             dataIndex="birthDay"
             key="birthDay"
+            render={birthDay => moment(birthDay).format('MM.DD.YYYY')}
           />
           <Column
             title="Номер студенческого билета"
@@ -91,9 +95,20 @@ class StudentsList extends PureComponent {
                 >
                   {'Редактировать'}
                 </Button>
-                <Button type="ghost" icon="delete">
-                  {'Удалить'}
-                </Button>
+                <Popconfirm
+                  title="Вы действительно хотите удалить студента?"
+                  onConfirm={() => {
+                    dispatch({ type: 'students/deleteStudent', payload: { id } });
+                    message.success('Удалено');
+                  }}
+                >
+                  <Button
+                    type="ghost"
+                    icon="delete"
+                  >
+                    {'Удалить'}
+                  </Button>
+                </Popconfirm>
                 <Button
                   type="ghost"
                   icon="file-text"

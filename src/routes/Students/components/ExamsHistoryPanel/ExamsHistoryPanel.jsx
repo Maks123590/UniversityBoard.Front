@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Drawer, Timeline } from 'antd';
+import moment from 'moment';
 
 class ExamsHistoryPanel extends Component {
     onClose = () => {
@@ -47,14 +48,14 @@ class ExamsHistoryPanel extends Component {
               if (examInfo.appraisalType === 2) {
                 return (
                   <Timeline.Item color="blue" key={examInfo.id}>
-                    {`${new Date(examInfo.date).toDateString()} - ${examInfo.academicDiscipline.disciplineCode}: ${examInfo.academicDiscipline.name} - Зачет с результатом - ${examInfo.setOff ? 'Зачтено' : 'Не зачтено'} (${examInfo.score} баллов)`}
+                    {`${moment(examInfo.date).format('MM.DD.YYYY')} - ${examInfo.academicDiscipline.disciplineCode}: ${examInfo.academicDiscipline.name} - Зачет с результатом - ${examInfo.setOff ? 'Зачтено' : 'Не зачтено'} (${examInfo.score} баллов)`}
                   </Timeline.Item>
                 );
               }
 
               return (
                 <Timeline.Item color={ExamsHistoryPanel.getColor(examInfo.score)} key={examInfo.id}>
-                  {`${new Date(examInfo.date).toDateString()} - ${examInfo.academicDiscipline.disciplineCode}: ${examInfo.academicDiscipline.name} - Экзамен с результатом - ${ExamsHistoryPanel.getLevelName(examInfo.level)} (${examInfo.score} баллов)`}
+                  {`${moment(examInfo.date).format('MM.DD.YYYY')} - ${examInfo.academicDiscipline.disciplineCode}: ${examInfo.academicDiscipline.name} - Экзамен с результатом - ${ExamsHistoryPanel.getLevelName(examInfo.level)} (${examInfo.score} баллов)`}
                 </Timeline.Item>
               );
             })}
