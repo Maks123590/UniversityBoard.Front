@@ -4,6 +4,7 @@ export default {
     groupMenuActiveKey: '1',
     historyPanelVisible: false,
     studentFrom: false,
+    groupInfoPanel: false,
   },
 
   reducers: {
@@ -17,6 +18,12 @@ export default {
       return {
         ...state,
         studentFrom: !state.studentFrom,
+      };
+    },
+    switchGroupInfoPanel(state) {
+      return {
+        ...state,
+        groupInfoPanel: !state.groupInfoPanel,
       };
     },
   },

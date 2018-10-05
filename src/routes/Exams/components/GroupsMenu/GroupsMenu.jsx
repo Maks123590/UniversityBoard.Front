@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Icon } from 'antd';
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import DisciplinesMenu from '../DisciplinesMenu';
 import styles from './GroupsMenu.less';
 
@@ -60,7 +60,7 @@ class GroupsMenu extends PureComponent {
           >
             <DisciplinesMenu />
             <div className={styles.levelDiagramm}>
-              <Doughnut
+              <Pie
                 data={data}
                 legend={{
                   position: 'right',

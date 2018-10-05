@@ -1,23 +1,27 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Menu } from 'antd';
+import { Tabs } from 'antd';
 import styles from './DisciplinesMenu.less';
 
 class DisciplinesMenu extends PureComponent {
   render() {
     const { academicDisciplines } = this.props;
     return (
-      <Menu
-        onClick={this.handleClick}
+      <Tabs
+        tabPosition="left"
         className={styles.groups}
-        mode="inline"
       >
         {academicDisciplines.list.map(discipline => (
-          <Menu.Item key={discipline.disciplineCode + discipline.name}>
-            {`${discipline.disciplineCode} : ${discipline.name}`}
-          </Menu.Item>
+          <Tabs.TabPane
+            type="line"
+            key={discipline.disciplineCode + discipline.name}
+            tab={(
+            `${discipline.disciplineCode} : ${discipline.name}`
+            )}
+            className={styles.wrapper}
+          />
         ))}
-      </Menu>
+      </Tabs>
     );
   }
 }
