@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Drawer, Divider } from 'antd';
-import GenderDiagramm from '../GenderDiagramm';
-import StudentsList from '../StudentsList';
+import GenderDiagramm from './components/GenderDiagramm';
+import StudentsList from './components/StudentsList';
 // import moment from 'moment';
 
 class GroupInfoPanel extends Component {

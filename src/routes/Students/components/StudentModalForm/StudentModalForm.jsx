@@ -133,7 +133,7 @@ class StudentModalForm extends Component {
                   message: 'введите дату рождения',
                 },
               ],
-              initialValue: moment(student.birthDay),
+              initialValue: student.birthDay !== null ? moment(student.birthDay) : null,
             })(
               <DatePicker name="birthDay" />,
             )}

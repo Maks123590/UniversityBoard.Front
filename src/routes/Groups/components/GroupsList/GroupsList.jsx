@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import {
-  Table, Button, Avatar,
+  Table, Button, Avatar, Popconfirm, message,
 } from 'antd';
 import GroupInfoPanel from '../GroupInfoPanel';
 
@@ -21,6 +21,19 @@ class GroupsList extends Component {
           dataSource={groups.list}
           pagination={{ pageSize: 8 }}
           bordered={false}
+          loading={groups.list.length === 0}
+          footer={() => (
+            <Button
+              type="secondary"
+              icon="usergroup-add"
+              style={{ marginLeft: 2 }}
+              onClick={() => {
+                dispatch({ type: 'switches/switchGroupForm', payload: { mode: null } });
+              }}
+            >
+              {'Новая группа'}
+            </Button>
+          )}
         >
           <Column
             title="Номер"
@@ -72,12 +85,27 @@ class GroupsList extends Component {
             key="actions"
             render={() => (
               <Button.Group>
-                <Button type="ghost" icon="edit">
+                <Button
+                  type="ghost"
+                  icon="edit"
+                  onClick={() => {
+                    dispatch({ type: 'switches/switchGroupForm', payload: { mode: null } });
+                  }}
+                >
                   {'Редактировать'}
                 </Button>
-                <Button type="ghost" icon="delete">
-                  {'Удалить'}
-                </Button>
+                <Popconfirm
+                  title="Вы действительно хотите удалить группу?"
+                  onConfirm={() => {
+                    // dispatch({ type: 'students/deleteStudent', payload: { id } });
+                    message.success('Удалено');
+                  }}
+                >
+                  <Button type="ghost" icon="delete">
+                    {'Удалить'}
+                  </Button>
+                </Popconfirm>
+
                 <Button
                   type="ghost"
                   icon="solution"

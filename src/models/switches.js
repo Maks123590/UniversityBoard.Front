@@ -5,6 +5,10 @@ export default {
     historyPanelVisible: false,
     studentFrom: false,
     groupInfoPanel: false,
+    groupForm: {
+      visible: false,
+      mode: null,
+    },
   },
 
   reducers: {
@@ -24,6 +28,15 @@ export default {
       return {
         ...state,
         groupInfoPanel: !state.groupInfoPanel,
+      };
+    },
+    switchGroupForm(state, { payload: { mode } }) {
+      return {
+        ...state,
+        groupForm: {
+          visible: !state.groupForm.visible,
+          mode,
+        },
       };
     },
   },

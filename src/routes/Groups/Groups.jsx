@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../layouts/Layout';
 import GroupsList from './components/GroupsList/index';
+import GroupModalForm from './components/GroupModalForm';
 
 class Groups extends PureComponent {
   render() {
@@ -9,6 +10,7 @@ class Groups extends PureComponent {
     return (
       <Layout location={location}>
         <GroupsList />
+        <GroupModalForm />
       </Layout>
     );
   }

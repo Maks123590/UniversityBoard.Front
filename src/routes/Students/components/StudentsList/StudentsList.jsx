@@ -27,13 +27,13 @@ const sortStrings = (a, b) => {
 class StudentsList extends PureComponent {
   render() {
     const { students, dispatch } = this.props;
-
     return (
       <Fragment>
         <Table
           dataSource={students.list}
           pagination={{ pageSize: 8 }}
           bordered={false}
+          loading={students.list.length === 0}
           rowKey="id"
           footer={() => (
             <Button
