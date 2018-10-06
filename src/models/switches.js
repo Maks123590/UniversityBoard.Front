@@ -9,6 +9,10 @@ export default {
       visible: false,
       mode: null,
     },
+    disciplineForm: {
+      visible: false,
+      mode: null,
+    },
   },
 
   reducers: {
@@ -35,6 +39,15 @@ export default {
         ...state,
         groupForm: {
           visible: !state.groupForm.visible,
+          mode,
+        },
+      };
+    },
+    switchDisciplineForm(state, { payload: { mode } }) {
+      return {
+        ...state,
+        disciplineForm: {
+          visible: !state.disciplineForm.visible,
           mode,
         },
       };

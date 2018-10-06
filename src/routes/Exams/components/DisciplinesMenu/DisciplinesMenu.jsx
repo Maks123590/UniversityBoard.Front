@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Button } from 'antd';
 import styles from './DisciplinesMenu.less';
+import DisciplineModalForm from './conponents/DisciplineModalForm';
 
 class DisciplinesMenu extends PureComponent {
   render() {
-    const { academicDisciplines } = this.props;
+    const { academicDisciplines, dispatch } = this.props;
+
     return (
       <div className={styles.wrapper}>
         <Tabs
@@ -22,9 +24,16 @@ class DisciplinesMenu extends PureComponent {
             />
           ))}
         </Tabs>
-        <Button style={{ width: '100%' }} type="ghost">
+        <Button
+          style={{ width: '100%' }}
+          type="ghost"
+          onClick={() => {
+            dispatch({ type: 'switches/switchDisciplineForm', payload: { mode: null } });
+          }}
+        >
           {'Новый предмет'}
         </Button>
+        <DisciplineModalForm />
       </div>
 
     );
@@ -33,6 +42,7 @@ class DisciplinesMenu extends PureComponent {
 
 DisciplinesMenu.propTypes = {
   academicDisciplines: PropTypes.instanceOf(Object).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default DisciplinesMenu;

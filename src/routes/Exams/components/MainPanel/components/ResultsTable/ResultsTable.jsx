@@ -77,16 +77,6 @@ class ResultTable extends PureComponent {
                     {'Удалить'}
                   </Button>
                 </Popconfirm>
-                <Button
-                  type="ghost"
-                  icon="file-text"
-                  onClick={() => {
-                    dispatch({ type: 'exams/getExamsByStudentId', payload: { studentId: id } });
-                    dispatch({ type: 'switches/switchHistoryPanelVisible' });
-                  }}
-                >
-                  {'История экзаменов'}
-                </Button>
               </Button.Group>)}
           />
         </Table>
