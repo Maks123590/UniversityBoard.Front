@@ -6,7 +6,7 @@ import {
 
 import Header from './components/Header/Header';
 
-import * as styles from './Layout.css';
+import * as styles from './Layout.less';
 
 const { Footer, Content } = AntdLayout;
 

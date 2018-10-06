@@ -1,40 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Icon } from 'antd';
-import { Pie } from 'react-chartjs-2';
 import DisciplinesMenu from '../DisciplinesMenu';
 import styles from './GroupsMenu.less';
+import MainPanel from '../MainPanel';
 
-const data = {
-  labels: [
-    'Не зачтено',
-    'Удовлетворительно',
-    'Хорошо',
-    'Отлично',
-  ],
-  datasets: [{
-    data: [2, 9, 12, 7],
-    backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56',
-    ],
-    hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56',
-    ],
-  }],
-  options: {
-    position: 'left',
-    fullWidth: true,
-  },
-};
 
 class GroupsMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.selectTab = this.selectTab.bind(this);
+  }
+
+  componentDidMount() {
+    const { dispatch, groupMenuActiveKey } = this.props;
+    dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { groupMenuActiveKey } });
+    dispatch({ type: 'academicDisciplines/getDisciplinesByGroupId', payload: { groupId: groupMenuActiveKey } });
   }
 
   selectTab(activeKey) {
@@ -59,17 +40,7 @@ class GroupsMenu extends PureComponent {
             className={styles.wrapper}
           >
             <DisciplinesMenu />
-            <div className={styles.levelDiagramm}>
-              <Pie
-                data={data}
-                legend={{
-                  position: 'right',
-                  labels: {
-                    reverse: true,
-                  },
-                }}
-              />
-            </div>
+            <MainPanel />
           </Tabs.TabPane>
         ))}
       </Tabs>

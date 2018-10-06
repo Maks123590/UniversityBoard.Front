@@ -4,7 +4,7 @@ import { Layout, Menu } from 'antd';
 
 import { Link } from 'dva/router';
 import Logo from '../Logo/Logo';
-import styles from '../../Layout.css';
+import styles from '../../Layout.less';
 
 import routes from '../../../constants/routes';
 

@@ -1,27 +1,32 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Tabs } from 'antd';
+import { Tabs, Button } from 'antd';
 import styles from './DisciplinesMenu.less';
 
 class DisciplinesMenu extends PureComponent {
   render() {
     const { academicDisciplines } = this.props;
     return (
-      <Tabs
-        tabPosition="left"
-        className={styles.groups}
-      >
-        {academicDisciplines.list.map(discipline => (
-          <Tabs.TabPane
-            type="line"
-            key={discipline.disciplineCode + discipline.name}
-            tab={(
-            `${discipline.disciplineCode} : ${discipline.name}`
+      <div className={styles.wrapper}>
+        <Tabs
+          tabPosition="left"
+          className={styles.disciplines}
+        >
+          {academicDisciplines.list.map(discipline => (
+            <Tabs.TabPane
+              type="line"
+              key={discipline.disciplineCode + discipline.name}
+              tab={(
+            `${discipline.name}`
             )}
-            className={styles.wrapper}
-          />
-        ))}
-      </Tabs>
+            />
+          ))}
+        </Tabs>
+        <Button style={{ width: '100%' }} type="ghost">
+          {'Новый предмет'}
+        </Button>
+      </div>
+
     );
   }
 }
