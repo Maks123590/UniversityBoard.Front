@@ -113,6 +113,7 @@ class GroupsList extends Component {
                   icon="solution"
                   onClick={() => {
                     dispatch({ type: 'switches/switchGroupInfoPanel' });
+                    dispatch({ type: 'groups/getGroup', payload: { id } });
                   }}
                 >
                   {'Состав'}
