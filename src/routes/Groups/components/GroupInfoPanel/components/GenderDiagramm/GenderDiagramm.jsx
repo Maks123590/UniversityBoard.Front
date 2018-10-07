@@ -5,28 +5,32 @@ import { Doughnut } from 'react-chartjs-2';
 // import { Drawer } from 'antd';
 // import moment from 'moment';
 
-const data = {
-  labels: [
-    'Женщины',
-    'Мужчины',
-  ],
-  datasets: [{
-    data: [9, 12],
-    backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
+function getData(students) {
+  return {
+    labels: [
+      'Мужчины',
+      'Женщины',
     ],
-    hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-    ],
-  }],
-  options: {
-    position: 'left',
-    fullWidth: true,
-  },
-};
-
+    datasets: [{
+      data: [
+        students.filter(el => el.gender === 1).length,
+        students.filter(el => el.gender === 2).length,
+      ],
+      backgroundColor: [
+        '#36A2EB',
+        '#FF6384',
+      ],
+      hoverBackgroundColor: [
+        '#36A2EB',
+        '#FF6384',
+      ],
+    }],
+    options: {
+      position: 'left',
+      fullWidth: true,
+    },
+  };
+}
 
 class GenderDiagramm extends Component {
     onClose = () => {
@@ -36,9 +40,11 @@ class GenderDiagramm extends Component {
     };
 
     render() {
+      const { students } = this.props;
+
       return (
         <Doughnut
-          data={data}
+          data={getData(students)}
           legend={{
             position: 'right',
             labels: {
@@ -52,6 +58,7 @@ class GenderDiagramm extends Component {
 
 GenderDiagramm.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  students: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default GenderDiagramm;
