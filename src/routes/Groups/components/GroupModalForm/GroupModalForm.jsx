@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import {
-  Modal, Button, Form, Input, DatePicker, Select, // message,
+  Modal, Button, Form, Input, DatePicker, Select, message,
 } from 'antd';
 
 import { smaleItemLayout, largeLabelItemLayout } from './styleConstants';
@@ -12,17 +12,12 @@ class GroupModalForm extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch({ type: 'groups/getGroups', payload: {} });
+    dispatch({ type: 'educationalDirections/getEducationalDirections', payload: {} });
   }
 
   handleOk = () => {
     const {
-      form, dispatch,
-    } = this.props;
-
-    /*
-    const {
-      form, dispatch,
+      form, dispatch, group,
     } = this.props;
 
     form.validateFields((err, values) => {
@@ -30,20 +25,19 @@ class GroupModalForm extends Component {
         const messageBody = {
           ...values,
         };
-        if (student.id === null) {
-          dispatch({ type: 'students/createStudent', payload: { values: { ...messageBody } } });
-          message.success(`Студент ${values.lastName} ${values.firstName} ${values.middleName} добавлен в базу`);
+        if (group.id === null) {
+          dispatch({ type: 'groups/createGroup', payload: { values: { ...messageBody } } });
+          message.success('Добавлено в базу');
         } else {
-          messageBody.id = student.id;
-          dispatch({ type: 'students/updateStudent', payload: { values: { ...messageBody } } });
+          messageBody.id = group.id;
+          dispatch({ type: 'groups/updateGroup', payload: { values: { ...messageBody } } });
           message.success('Изменено');
         }
+
+        dispatch({ type: 'switches/switchGroupForm', payload: { mode: null } });
+        form.resetFields();
       }
     });
-    */
-
-    dispatch({ type: 'switches/switchGroupForm', payload: { mode: null } });
-    form.resetFields();
   }
 
   handleCancel = () => {
@@ -56,7 +50,7 @@ class GroupModalForm extends Component {
 
   render() {
     const {
-      visible, form,
+      visible, form, educationalDirections, group,
     } = this.props;
     const { getFieldDecorator } = form;
 
@@ -86,38 +80,31 @@ class GroupModalForm extends Component {
                   message: 'введите номер',
                 },
               ],
-              initialValue: null,
+              initialValue: group.number,
             })(
               <Input name="firstName" />,
             )}
           </Form.Item>
           <Form.Item label="Направление" {...smaleItemLayout}>
-            {getFieldDecorator('groupId', {
+            {getFieldDecorator('educationalDirectionCode', {
               rules: [
                 {
                   required: true,
                   message: 'введите направление',
                 },
               ],
-              initialValue: null,
+              initialValue: group.educationalDirectionCode,
             })(
               <Select
                 name="educationalDirection"
                 placeholder="выберите направление"
                 onChange={this.handleSelectChange}
               >
-                <Select.Option value={1} key={1}>
-                  {'Направление 1'}
-                </Select.Option>
-                <Select.Option value={2} key={2}>
-                  {'Направление 2'}
-                </Select.Option>
-                <Select.Option value={3} key={3}>
-                  {'Направление 3'}
-                </Select.Option>
-                <Select.Option value={4} key={4}>
-                  {'Направление 4'}
-                </Select.Option>
+                {educationalDirections.map(direction => (
+                  <Select.Option value={direction.code} key={direction.code}>
+                    {direction.name}
+                  </Select.Option>
+                ))}
               </Select>,
             )}
           </Form.Item>
@@ -125,29 +112,22 @@ class GroupModalForm extends Component {
             {getFieldDecorator('headId', {
               rules: [
                 {
-                  required: true,
+                  required: false,
                   message: 'выберите старосту',
                 },
               ],
-              initialValue: null,
+              initialValue: group.headId,
             })(
               <Select
                 name="headId"
                 placeholder="выберите старосту"
                 onChange={this.handleSelectChange}
               >
-                <Select.Option value={1} key={11}>
-                  {'Студент 1'}
-                </Select.Option>
-                <Select.Option value={2} key={12}>
-                  {'Студент 2'}
-                </Select.Option>
-                <Select.Option value={3} key={13}>
-                  {'Студент 3'}
-                </Select.Option>
-                <Select.Option value={4} key={14}>
-                  {'Студент 4'}
-                </Select.Option>
+                {group.students.map(student => (
+                  <Select.Option value={student.id} key={student.id}>
+                    {`${student.lastName} ${student.firstName} ${student.middleName}`}
+                  </Select.Option>
+                ))}
               </Select>,
             )}
           </Form.Item>
@@ -159,7 +139,7 @@ class GroupModalForm extends Component {
                   message: 'введите дату формирования',
                 },
               ],
-              initialValue: moment(),
+              initialValue: group.formationDate !== null ? moment(group.formationDate) : null,
             })(
               <DatePicker name="formationDate" />,
             )}
@@ -173,9 +153,8 @@ class GroupModalForm extends Component {
 GroupModalForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  student: PropTypes.shape({ id: PropTypes.number }).isRequired,
-  groups: PropTypes.shape({ list: PropTypes.instanceOf(Array).isRequired }).isRequired,
   form: PropTypes.shape({ getFieldDecorator: PropTypes.func }).isRequired,
+  group: PropTypes.shape({ id: PropTypes.number }).isRequired,
 };
 
 export default Form.create()(GroupModalForm);

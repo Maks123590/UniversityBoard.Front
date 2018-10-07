@@ -29,6 +29,7 @@ class GroupsList extends Component {
               style={{ marginLeft: 2 }}
               onClick={() => {
                 dispatch({ type: 'switches/switchGroupForm', payload: { mode: null } });
+                dispatch({ type: 'groups/clearOneGroup' });
               }}
             >
               {'Новая группа'}
@@ -81,15 +82,16 @@ class GroupsList extends Component {
           />
           <Column
             title="Действия"
-            dataIndex="actions"
+            dataIndex="id"
             key="actions"
-            render={() => (
+            render={id => (
               <Button.Group>
                 <Button
                   type="ghost"
                   icon="edit"
                   onClick={() => {
                     dispatch({ type: 'switches/switchGroupForm', payload: { mode: null } });
+                    dispatch({ type: 'groups/getGroup', payload: { id } });
                   }}
                 >
                   {'Редактировать'}
@@ -97,7 +99,7 @@ class GroupsList extends Component {
                 <Popconfirm
                   title="Вы действительно хотите удалить группу?"
                   onConfirm={() => {
-                    // dispatch({ type: 'students/deleteStudent', payload: { id } });
+                    dispatch({ type: 'groups/deleteGroup', payload: { id } });
                     message.success('Удалено');
                   }}
                 >
