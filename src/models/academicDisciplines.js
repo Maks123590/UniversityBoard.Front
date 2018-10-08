@@ -6,11 +6,15 @@ export default {
   namespace: 'academicDisciplines',
   state: {
     list: [],
+    byDepartamentList: [],
   },
 
   reducers: {
     saveDisciplines(state, { payload: { disciplines } }) {
       return { ...state, list: disciplines };
+    },
+    saveDisciplinesByDepartaments(state, { payload: { disciplines } }) {
+      return { ...state, byDepartamentList: disciplines };
     },
   },
 
@@ -19,6 +23,11 @@ export default {
       const { data: disciplines } = yield call(academicDisciplinesServices.getDisciplines, groupId);
 
       yield put({ type: 'saveDisciplines', payload: { disciplines } });
+    },
+    * getDisciplinesByDepartamentCode({ payload: { code } }, { call, put }) {
+      const { data: disciplines } = yield call(academicDisciplinesServices.getByAcademicDepartament, code);
+
+      yield put({ type: 'saveDisciplinesByDepartaments', payload: { disciplines } });
     },
   },
 

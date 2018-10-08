@@ -7,12 +7,13 @@ import {
 } from 'antd';
 
 import { smaleItemLayout } from './styleConstants';
+// import academicDisciplines from '../../../../../../models/academicDisciplines';
 
 class GroupModalForm extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch({ type: 'groups/getGroups', payload: {} });
+    dispatch({ type: 'academicDepartaments/getAcademicDepartaments', payload: {} });
   }
 
   handleOk = () => {
@@ -56,7 +57,7 @@ class GroupModalForm extends Component {
 
   render() {
     const {
-      visible, form,
+      visible, form, academicDepartaments, dispatch, academicDisciplines,
     } = this.props;
     const { getFieldDecorator } = form;
 
@@ -76,6 +77,31 @@ class GroupModalForm extends Component {
         ]}
       >
         <Form onSubmit={this.onSubmitClick}>
+          <Form.Item label="Кафедра" {...smaleItemLayout}>
+            {getFieldDecorator('academicDepartament', {
+              rules: [
+                {
+                  required: true,
+                  message: 'введите кафедру',
+                },
+              ],
+              initialValue: null,
+            })(
+              <Select
+                name="disciplineCode"
+                placeholder="выберите кафедру"
+                onChange={(e) => {
+                  dispatch({ type: 'academicDisciplines/getDisciplinesByDepartamentCode', payload: { code: e } });
+                }}
+              >
+                {academicDepartaments.map(academicDepartament => (
+                  <Select.Option value={academicDepartament.code} key={academicDepartament.code}>
+                    {academicDepartament.name}
+                  </Select.Option>
+                ))}
+              </Select>,
+            )}
+          </Form.Item>
           <Form.Item label="Дисциплина" {...smaleItemLayout}>
             {getFieldDecorator('disciplineCode', {
               rules: [
@@ -90,18 +116,11 @@ class GroupModalForm extends Component {
                 name="disciplineCode"
                 placeholder="выберите предмет"
               >
-                <Select.Option value={1} key={1}>
-                  {'Направление 1'}
-                </Select.Option>
-                <Select.Option value={2} key={2}>
-                  {'Направление 2'}
-                </Select.Option>
-                <Select.Option value={3} key={3}>
-                  {'Направление 3'}
-                </Select.Option>
-                <Select.Option value={4} key={4}>
-                  {'Направление 4'}
-                </Select.Option>
+                {academicDisciplines.map(academicDiscipline => (
+                  <Select.Option value={academicDiscipline.disciplineCode} key={academicDiscipline.disciplineCode}>
+                    {academicDiscipline.name}
+                  </Select.Option>
+                ))}
               </Select>,
             )}
           </Form.Item>

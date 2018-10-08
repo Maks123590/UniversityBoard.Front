@@ -76,8 +76,8 @@ class StudentsList extends PureComponent {
             title="Группа"
             dataIndex="group"
             key="group"
-            render={group => group.number}
-            sorter={(a, b) => Number(a.group.number) - Number(b.group.number)}
+            render={group => (group !== null ? group.number : 'Нет')}
+            sorter={(a, b) => (a.group !== null && b.group !== null ? Number(a.group.number) - Number(b.group.number) : 0)}
           />
           <Column
             title="Действия"

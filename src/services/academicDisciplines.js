@@ -8,4 +8,12 @@ export async function getDisciplines(groupId) {
   return result;
 }
 
+export async function getByAcademicDepartament(code) {
+  const result = await request({
+    url: `AcademicDisciplines/byAcademicDepartament/${code}`,
+    method: 'GET',
+  });
+  return result;
+}
+
 export default getDisciplines;

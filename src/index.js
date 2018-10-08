@@ -13,6 +13,7 @@ app.model(require('./models/groups').default);
 app.model(require('./models/exams').default);
 app.model(require('./models/academicDisciplines').default);
 app.model(require('./models/educationalDirections').default);
+app.model(require('./models/academicDepartaments').default);
 app.model(require('./models/switches').default);
 
 // 4. Router

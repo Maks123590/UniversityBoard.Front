@@ -2,7 +2,10 @@ import { connect } from 'dva';
 import DisciplineModalForm from './DisciplineModalForm';
 
 export default connect(({
-  dispatch, switches,
+  dispatch, switches, academicDepartaments, academicDisciplines,
 }) => ({
-  dispatch, visible: switches.disciplineForm.visible,
+  dispatch,
+  visible: switches.disciplineForm.visible,
+  academicDepartaments: academicDepartaments.list,
+  academicDisciplines: academicDisciplines.byDepartamentList,
 }))(DisciplineModalForm);
