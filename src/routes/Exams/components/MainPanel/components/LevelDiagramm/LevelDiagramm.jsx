@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pie } from 'react-chartjs-2';
+import { Card } from 'antd';
 import styles from './LevelDiagramm.less';
 
 
@@ -19,18 +20,29 @@ function getData(scoreStatistics) {
 }
 
 const LevelDiagramm = ({ scoreStatistics }) => (
-  <div className={styles.mainPanel}>
-    <div className={styles.levelDiagramm}>
-      <Pie
-        data={getData(scoreStatistics)}
-        legend={{
-          position: 'right',
-          labels: {
-            reverse: true,
-          },
-        }}
+  <div className={styles.wrapper}>
+    <Card
+      className={styles.Card}
+      cover={(
+        <div className={styles.levelDiagramm}>
+          <Pie
+            data={getData(scoreStatistics)}
+            legend={{
+              position: 'right',
+              labels: {
+                reverse: true,
+              },
+            }}
+          />
+        </div>
+      )}
+    >
+      <Card.Meta
+        style={{ textAlign: 'center' }}
+        title="Статистика результатов"
       />
-    </div>
+    </Card>
+
   </div>
 );
 

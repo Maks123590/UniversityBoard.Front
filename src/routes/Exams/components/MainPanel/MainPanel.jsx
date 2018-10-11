@@ -3,7 +3,9 @@ import React, { PureComponent } from 'react';
 import { Divider } from 'antd';
 import LevelDiagramm from './components/LevelDiagramm';
 import ResultTable from './components/ResultsTable';
+import ExamInfoPanel from './components/ExamInfoPanel';
 
+import styles from './MainPanel.less';
 
 class MainPanel extends PureComponent {
   constructor(props) {
@@ -14,8 +16,9 @@ class MainPanel extends PureComponent {
 
   render() {
     return (
-      <div style={{ width: '100%' }}>
-        <div>
+      <div className={styles.mainPanel} style={{ width: '100%' }}>
+        <div className={styles.panelsWrapper}>
+          <ExamInfoPanel />
           <LevelDiagramm />
         </div>
         <Divider />
