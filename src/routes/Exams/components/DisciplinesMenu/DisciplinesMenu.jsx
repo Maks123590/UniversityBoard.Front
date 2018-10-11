@@ -2,27 +2,38 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Button } from 'antd';
 import styles from './DisciplinesMenu.less';
-import DisciplineModalForm from './conponents/DisciplineModalForm';
 
 class DisciplinesMenu extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.selectTab = this.selectTab.bind(this);
+  }
+
+  selectTab(activeKey) {
+    const { dispatch } = this.props;
+
+    dispatch({ type: 'attestations/getAttestation', payload: { id: activeKey } });
+  }
+
   render() {
-    const { academicDisciplines, dispatch } = this.props;
+    const { attestations, dispatch } = this.props;
 
     return (
       <div className={styles.wrapper}>
         <Tabs
           tabPosition="left"
           className={styles.disciplines}
+          onChange={this.selectTab}
         >
-          {academicDisciplines.list.map(discipline => (
+          {attestations.list !== null ? attestations.list.map(attestation => (
             <Tabs.TabPane
               type="line"
-              key={discipline.disciplineCode + discipline.name}
+              key={attestation.id}
               tab={(
-            `${discipline.name}`
+            `${attestation.academicDiscipline.name}`
             )}
             />
-          ))}
+          )) : ''}
         </Tabs>
         <Button
           style={{ width: '100%' }}
@@ -33,7 +44,6 @@ class DisciplinesMenu extends PureComponent {
         >
           {'Новый предмет'}
         </Button>
-        <DisciplineModalForm />
       </div>
 
     );
@@ -41,7 +51,7 @@ class DisciplinesMenu extends PureComponent {
 }
 
 DisciplinesMenu.propTypes = {
-  academicDisciplines: PropTypes.instanceOf(Object).isRequired,
+  attestations: PropTypes.instanceOf(Object).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

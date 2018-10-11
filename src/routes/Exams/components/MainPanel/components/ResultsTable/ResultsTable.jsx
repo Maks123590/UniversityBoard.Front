@@ -6,46 +6,51 @@ import {
   Table, Button, Avatar, Popconfirm, message,
 } from 'antd';
 
-import students from '../../../../../../stubs/students';
+// import students from '../../../../../../stubs/students';
 
 
 const { Column } = Table;
 
 class ResultTable extends PureComponent {
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, examInfos } = this.props;
     return (
       <Fragment>
         <Table
-          dataSource={students}
+          dataSource={examInfos}
           pagination={{ pageSize: 5 }}
           bordered={false}
           size="small"
-          loading={students.length === 0}
+          loading={examInfos === null}
           rowKey="id"
         >
           <Column
             title="Фамилия Имя Отчество"
-            dataIndex="lastName"
+            dataIndex="student"
             key="Fio"
             render={(student, record) => (
               <Fragment>
                 <Avatar icon="user" shape="square" style={{ marginRight: '4%' }} />
-                {`${record.lastName} ${record.firstName} ${record.middleName}`}
+                {`${record.student.lastName} ${record.student.firstName} ${record.student.middleName}`}
               </Fragment>
             )}
             sorter={() => {}}
           />
           <Column
-            title="Дата рождения"
-            dataIndex="birthDay"
-            key="birthDay"
-            render={birthDay => moment(birthDay).format('MM.DD.YYYY')}
+            title="Дата сдачи"
+            dataIndex="date"
+            key="date"
+            render={date => moment(date).format('MM.DD.YYYY')}
           />
           <Column
-            title="Номер студенческого билета"
-            dataIndex="studentCardNumber"
-            key="studentCardNumber"
+            title="Баллы"
+            dataIndex="score"
+            key="score"
+          />
+          <Column
+            title="Оценка"
+            dataIndex="level"
+            key="level"
           />
           <Column
             title="Действия"
@@ -86,7 +91,7 @@ class ResultTable extends PureComponent {
 }
 
 ResultTable.propTypes = {
-  students: PropTypes.shape({ list: PropTypes.instanceOf(Array) }).isRequired,
+  examInfos: PropTypes.instanceOf(Array).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

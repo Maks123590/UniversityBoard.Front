@@ -21,7 +21,7 @@ class GroupsList extends Component {
           dataSource={groups.list}
           pagination={{ pageSize: 8 }}
           bordered={false}
-          loading={groups.list.length === 0}
+          loading={groups.list === null}
           footer={() => (
             <Button
               type="secondary"

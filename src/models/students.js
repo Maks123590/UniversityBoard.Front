@@ -6,7 +6,7 @@ import { getPath } from '../utils/pathManager';
 export default {
   namespace: 'students',
   state: {
-    list: [],
+    list: null,
     oneStudent: {
       id: null,
       firstName: null,

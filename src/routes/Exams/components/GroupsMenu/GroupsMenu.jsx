@@ -15,20 +15,20 @@ class GroupsMenu extends PureComponent {
   componentDidMount() {
     const { dispatch, groupMenuActiveKey } = this.props;
     dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { groupMenuActiveKey } });
-    dispatch({ type: 'academicDisciplines/getDisciplinesByGroupId', payload: { groupId: groupMenuActiveKey } });
+    dispatch({ type: 'attestations/getAttestationsByGroupId', payload: { groupId: groupMenuActiveKey } });
   }
 
   selectTab(activeKey) {
     const { dispatch } = this.props;
     dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { activeKey } });
-    dispatch({ type: 'academicDisciplines/getDisciplinesByGroupId', payload: { groupId: activeKey } });
+    dispatch({ type: 'attestations/getAttestationsByGroupId', payload: { groupId: activeKey } });
   }
 
   render() {
     const { groups, groupMenuActiveKey } = this.props;
     return (
       <Tabs defaultActiveKey={groupMenuActiveKey} size="large" onChange={this.selectTab}>
-        {groups.list.map(group => (
+        { groups.list !== null ? groups.list.map(group => (
           <Tabs.TabPane
             tab={(
               <div>
@@ -42,7 +42,7 @@ class GroupsMenu extends PureComponent {
             <DisciplinesMenu />
             <MainPanel />
           </Tabs.TabPane>
-        ))}
+        )) : ''}
       </Tabs>
     );
   }

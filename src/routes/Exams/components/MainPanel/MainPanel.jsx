@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 // import PropTypes from 'prop-types';
 import { Divider } from 'antd';
-import LevelDiagramm from './components/LevelDiagramm/LevelDiagramm';
-import ResultTable from './components/ResultsTable/ResultsTable';
+import LevelDiagramm from './components/LevelDiagramm';
+import ResultTable from './components/ResultsTable';
 
 
 class MainPanel extends PureComponent {

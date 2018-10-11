@@ -7,7 +7,7 @@ import { getPath } from '../utils/pathManager';
 export default {
   namespace: 'groups',
   state: {
-    list: [],
+    list: null,
     oneGroup: {
       students: [],
       head: null,

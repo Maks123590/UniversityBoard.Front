@@ -12,7 +12,7 @@ class StudentModalForm extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch({ type: 'groups/getGroups', payload: {} });
+    dispatch({ type: 'groups/getGroups' });
   }
 
   handleOk = () => {
@@ -179,9 +179,9 @@ class StudentModalForm extends Component {
                 placeholder="dыберите группу"
                 onChange={this.handleSelectChange}
               >
-                {groups.list.map(group => (
+                { groups.list !== null ? groups.list.map(group => (
                   <Select.Option value={group.id} key={group.id}>{group.number}</Select.Option>
-                ))}
+                )) : ''}
               </Select>,
             )}
           </Form.Item>

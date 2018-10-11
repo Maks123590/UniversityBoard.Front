@@ -33,7 +33,7 @@ class StudentsList extends PureComponent {
           dataSource={students.list}
           pagination={{ pageSize: 8 }}
           bordered={false}
-          loading={students.list.length === 0}
+          loading={students.list === null}
           rowKey="id"
           footer={() => (
             <Button
