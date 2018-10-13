@@ -1,7 +1,7 @@
 export default {
   namespace: 'switches',
   state: {
-    groupMenuActiveKey: '1',
+    groupMenuActiveKey: 1,
     historyPanelVisible: false,
     studentFrom: false,
     groupInfoPanel: false,
@@ -11,7 +11,7 @@ export default {
     },
     disciplineForm: {
       visible: false,
-      mode: null,
+      mode: null, // 0 - for new, 1 - for edit
     },
   },
 

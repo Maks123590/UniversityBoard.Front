@@ -46,6 +46,10 @@ export default {
 
       state.list = list.map(el => (el.id === data.id ? data : el)); // eslint-disable-line no-param-reassign
 
+      state.oneAttestation = { // eslint-disable-line no-param-reassign
+        ...data,
+      };
+
       return { ...state };
     },
     removeAttestation(
@@ -105,7 +109,11 @@ export default {
     * deleteAttestation({ payload: { id } }, { call, put }) {
       yield call(attestationsServices.deleteAttestation, id);
 
-      yield put({ type: 'changeAttestation', payload: { id } });
+      yield put({ type: 'removeAttestation', payload: { id } });
+
+      const { data } = yield call(attestationsServices.getAttestation, 1); // 1 - remove in feature
+
+      yield put({ type: 'saveAttestation', payload: { data } });
     },
     * clearOneAttestations(_, { put }) {
       const data = {

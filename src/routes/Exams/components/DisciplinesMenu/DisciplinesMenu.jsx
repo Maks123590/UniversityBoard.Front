@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Button } from 'antd';
+
+import { formModes } from '../../../../constants/constants';
+
 import styles from './DisciplinesMenu.less';
 
 class DisciplinesMenu extends PureComponent {
@@ -39,7 +42,8 @@ class DisciplinesMenu extends PureComponent {
           style={{ width: '100%' }}
           type="ghost"
           onClick={() => {
-            dispatch({ type: 'switches/switchDisciplineForm', payload: { mode: null } });
+            dispatch({ type: 'switches/switchDisciplineForm', payload: { mode: formModes.new } });
+            // dispatch({ type: 'attestations/clearOneAttestations' });
           }}
         >
           {'Новый предмет'}

@@ -14,7 +14,7 @@ class GroupsMenu extends PureComponent {
 
   componentDidMount() {
     const { dispatch, groupMenuActiveKey } = this.props;
-    dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { groupMenuActiveKey } });
+    // dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { groupMenuActiveKey } });
     dispatch({ type: 'attestations/getAttestationsByGroupId', payload: { groupId: groupMenuActiveKey } });
   }
 

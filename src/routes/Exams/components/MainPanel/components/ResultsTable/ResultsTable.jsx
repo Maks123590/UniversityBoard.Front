@@ -23,6 +23,19 @@ class ResultTable extends PureComponent {
           size="small"
           loading={examInfos === null}
           rowKey="id"
+          footer={() => (
+            <Button
+              type="secondary"
+              icon="user-add"
+              style={{ marginLeft: 2 }}
+              onClick={() => {
+                // dispatch({ type: 'switches/switchstudentFromVisible', payload: { studentId: null } });
+                // dispatch({ type: 'students/clearOneStudent' });
+              }}
+            >
+              {'Новый студент'}
+            </Button>
+          )}
         >
           <Column
             title="Фамилия Имя Отчество"

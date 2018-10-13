@@ -1,39 +1,62 @@
 import React, { PureComponent } from 'react';
-import { Card, Icon, Spin } from 'antd';
+import {
+  Card, Icon, Popconfirm, message,
+} from 'antd';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+
+import { formModes } from '../../../../../../constants/constants';
+
 import styles from './ExamInfoPanel.less';
 
 class ExamInfoPanel extends PureComponent {
   render() {
-    const { attestation } = this.props;
-
-    if (attestation.id === null) {
-      return (
-        <Spin />
-      );
-    }
+    const { dispatch, attestation } = this.props;
 
     return (
       <div>
         <Card
           className={styles.Card}
-          actions={[<Icon type="edit" />, <Icon type="delete" />]}
+          actions={[
+            <Icon
+              type="edit"
+              onClick={() => {
+                dispatch({ type: 'switches/switchDisciplineForm', payload: { mode: formModes.edit } });
+              }}
+            />,
+            <Popconfirm
+              title="Вы действительно хотите удалить предмет?"
+              onConfirm={() => {
+                dispatch({ type: 'attestations/deleteAttestation', payload: { id: attestation.id } });
+                message.success('Удалено');
+              }}
+            >
+              <Icon
+                type="delete"
+              />
+            </Popconfirm>,
+          ]}
         >
-          <div styles={{ minHeight: '100%' }}>
+          <div className={styles.infoWrapper}>
             <div>
-              {`Название дисциплины ${attestation.academicDiscipline.name}`}
+              <span className={styles.descr}>Название дисциплины:</span>
+              <span className={styles.val}>{`${attestation.academicDiscipline && attestation.academicDiscipline.name}`}</span>
             </div>
             <div>
-              {`Код дисциплины ${attestation.academicDisciplineCode}`}
+              <span className={styles.descr}>Код дисциплины:</span>
+              <span className={styles.val}>{attestation.academicDisciplineCode}</span>
             </div>
             <div>
-              {`Количество часов ${attestation.hoursCount}`}
+              <span className={styles.descr}>Количество часов:</span>
+              <span className={styles.val}>{attestation.hoursCount !== null ? attestation.hoursCount : 'нет'}</span>
             </div>
             <div>
-              {`Дата проведения зачета/экзамена ${attestation.date}`}
+              <span className={styles.descr}>Дата проведения зачета/экзамена:</span>
+              <span className={styles.val}>{attestation.date !== null ? moment(attestation.date).format('MM.DD.YYYY') : 'нет'}</span>
             </div>
             <div>
-              {`Вид отчетности ${attestation.appraisalType === 1 ? 'Зачет' : 'Экзамен'}`}
+              <span className={styles.descr}>Вид отчетности:</span>
+              <span className={styles.val}>{attestation.appraisalType === 1 ? 'Зачет' : 'Экзамен'}</span>
             </div>
           </div>
         </Card>
@@ -43,7 +66,7 @@ class ExamInfoPanel extends PureComponent {
 }
 
 ExamInfoPanel.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   attestation: PropTypes.instanceOf(Object).isRequired,
 };
 

@@ -6,17 +6,16 @@ import {
   Modal, Button, Form, Select, InputNumber, DatePicker, message,
 } from 'antd';
 
-import { attestationTypes, formModes } from '../../../../../../constants/constants';
+import { formModes } from '../../../../constants/constants';
 
 import { smaleItemLayout } from './styleConstants';
 
-// import academicDisciplines from '../../../../../../models/academicDisciplines';
 
-class GroupModalForm extends Component {
+class ExamInfoModalForm extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    // const { dispatch } = this.props;
 
-    dispatch({ type: 'academicDepartaments/getAcademicDepartaments', payload: {} });
+    // dispatch({ type: 'academicDepartaments/getAcademicDepartaments', payload: {} });
   }
 
   handleOk = () => {
@@ -58,7 +57,7 @@ class GroupModalForm extends Component {
 
   render() {
     const {
-      visible, form, academicDepartaments, dispatch, academicDisciplines, attestation, mode,
+      visible, form, academicDepartaments, dispatch, attestation, mode,
     } = this.props;
     const { getFieldDecorator } = form;
 
@@ -78,7 +77,7 @@ class GroupModalForm extends Component {
         ]}
       >
         <Form onSubmit={this.onSubmitClick}>
-          <Form.Item label="Кафедра" {...smaleItemLayout}>
+          <Form.Item label="Студент" {...smaleItemLayout}>
             {getFieldDecorator('academicDepartament', {
               rules: [
                 {
@@ -103,64 +102,7 @@ class GroupModalForm extends Component {
               </Select>,
             )}
           </Form.Item>
-          <Form.Item label="Дисциплина" {...smaleItemLayout}>
-            {getFieldDecorator('disciplineCode', {
-              rules: [
-                {
-                  required: true,
-                  message: 'введите направление',
-                },
-              ],
-              initialValue: mode === formModes.edit ? attestation.academicDiscipline.disciplineCode : null,
-            })(
-              <Select
-                name="disciplineCode"
-                placeholder="выберите предмет"
-              >
-                {academicDisciplines.map(academicDiscipline => (
-                  <Select.Option value={academicDiscipline.disciplineCode} key={academicDiscipline.disciplineCode}>
-                    {academicDiscipline.name}
-                  </Select.Option>
-                ))}
-              </Select>,
-            )}
-          </Form.Item>
-          <Form.Item label="Количество часов" {...smaleItemLayout}>
-            {getFieldDecorator('hoursCount', {
-              rules: [
-                {
-                  required: true,
-                  message: 'введите количество часов',
-                },
-              ],
-              initialValue: mode === formModes.edit ? attestation.hoursCount : null,
-            })(
-              <InputNumber name="HoursCount" />,
-            )}
-          </Form.Item>
-          <Form.Item label="Вид отчета" {...smaleItemLayout}>
-            {getFieldDecorator('appraisalType', {
-              rules: [
-                {
-                  required: true,
-                  message: 'выберите вид отчетности',
-                },
-              ],
-              initialValue: mode === formModes.edit ? attestation.appraisalType : null,
-            })(
-              <Select
-                name="appraisalType"
-                placeholder="выберите предмет"
-              >
-                {attestationTypes.map(attestationType => (
-                  <Select.Option value={attestationType.key} key={attestationType.key}>
-                    {attestationType.value}
-                  </Select.Option>
-                ))}
-              </Select>,
-            )}
-          </Form.Item>
-          <Form.Item label="Дата проведения" {...smaleItemLayout}>
+          <Form.Item label="Дата сдачи" {...smaleItemLayout}>
             {getFieldDecorator('date', {
               rules: [
                 {
@@ -173,13 +115,26 @@ class GroupModalForm extends Component {
               <DatePicker name="issueDate" />,
             )}
           </Form.Item>
+          <Form.Item label="Баллы" {...smaleItemLayout}>
+            {getFieldDecorator('hoursCount', {
+              rules: [
+                {
+                  required: true,
+                  message: 'введите количество часов',
+                },
+              ],
+              initialValue: mode === formModes.edit ? attestation.hoursCount : null,
+            })(
+              <InputNumber name="HoursCount" />,
+            )}
+          </Form.Item>
         </Form>
       </Modal>
     );
   }
 }
 
-GroupModalForm.propTypes = {
+ExamInfoModalForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
   student: PropTypes.shape({ id: PropTypes.number }).isRequired,
@@ -187,4 +142,4 @@ GroupModalForm.propTypes = {
   form: PropTypes.shape({ getFieldDecorator: PropTypes.func }).isRequired,
 };
 
-export default Form.create()(GroupModalForm);
+export default Form.create()(ExamInfoModalForm);
