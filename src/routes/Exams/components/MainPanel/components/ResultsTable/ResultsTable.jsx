@@ -6,6 +6,8 @@ import {
   Table, Button, Avatar, Popconfirm, message,
 } from 'antd';
 
+import { formModes } from '../../../../../../constants/constants';
+
 // import students from '../../../../../../stubs/students';
 
 
@@ -29,8 +31,7 @@ class ResultTable extends PureComponent {
               icon="user-add"
               style={{ marginLeft: 2 }}
               onClick={() => {
-                // dispatch({ type: 'switches/switchstudentFromVisible', payload: { studentId: null } });
-                // dispatch({ type: 'students/clearOneStudent' });
+                dispatch({ type: 'switches/switchExamInfoForm', payload: { mode: formModes.new } });
               }}
             >
               {'Новый студент'}
@@ -75,16 +76,16 @@ class ResultTable extends PureComponent {
                   type="ghost"
                   icon="edit"
                   onClick={() => {
-                    dispatch({ type: 'switches/switchstudentFromVisible', payload: { studentId: id } });
-                    dispatch({ type: 'students/getStudent', payload: { studentId: id } });
+                    dispatch({ type: 'switches/switchExamInfoForm', payload: { mode: formModes.edit } });
+                    dispatch({ type: 'exams/getExamInfo', payload: { id } });
                   }}
                 >
                   {'Редактировать'}
                 </Button>
                 <Popconfirm
-                  title="Вы действительно хотите удалить студента?"
+                  title="Вы действительно хотите удалить запись?"
                   onConfirm={() => {
-                    dispatch({ type: 'students/deleteStudent', payload: { id } });
+                    dispatch({ type: 'exams/deleteExamInfo', payload: { id } });
                     message.success('Удалено');
                   }}
                 >

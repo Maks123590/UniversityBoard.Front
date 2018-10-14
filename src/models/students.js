@@ -67,6 +67,10 @@ export default {
 
       yield put({ type: 'saveStudents', payload: { students: studentsList } });
     },
+    * getStudentsByGroup({ payload: { groupId } }, { call, put }) {
+      const { data: students } = yield call(studentServices.getStudentsByGroup, groupId);
+      yield put({ type: 'saveStudents', payload: { students } });
+    },
     * getStudent({ payload: { studentId } }, { call, put }) {
       const { data: student } = yield call(studentServices.getStudent, studentId);
 

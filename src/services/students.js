@@ -8,6 +8,14 @@ export async function getStudents() {
   return result;
 }
 
+export async function getStudentsByGroup(groupId) {
+  const result = await request({
+    url: `Students/byGroup/${groupId}`,
+    method: 'GET',
+  });
+  return result;
+}
+
 export async function getStudent(id) {
   const result = await request({
     url: `Students/${id}`,

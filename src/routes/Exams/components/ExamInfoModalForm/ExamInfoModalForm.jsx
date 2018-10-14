@@ -13,35 +13,40 @@ import { smaleItemLayout } from './styleConstants';
 
 class ExamInfoModalForm extends Component {
   componentDidMount() {
-    // const { dispatch } = this.props;
+    const { dispatch, groupId } = this.props;
+    dispatch({ type: 'students/getStudentsByGroup', payload: { groupId } });
+  }
 
-    // dispatch({ type: 'academicDepartaments/getAcademicDepartaments', payload: {} });
+  componentWillReceiveProps(nextProps) {
+    const { groupId } = this.props;
+    if (groupId !== nextProps.groupId) {
+      const { dispatch } = this.props;
+
+      dispatch({ type: 'students/getStudentsByGroup', payload: { groupId: nextProps.groupId } });
+    }
   }
 
   handleOk = () => {
     const {
-      form, dispatch, attestation, groupId, mode,
+      form, dispatch, examInfo, attestationId, mode,
     } = this.props;
 
     form.validateFields((err, values) => {
       if (!err) {
         const messageBody = {
-          date: values.date,
-          academicDisciplineCode: values.disciplineCode,
-          groupId,
-          hoursCount: values.hoursCount,
-          appraisalType: values.appraisalType,
+          attestationId,
+          ...values,
         };
         if (mode === formModes.new) {
-          dispatch({ type: 'attestations/createAttestation', payload: { values: { ...messageBody } } });
+          dispatch({ type: 'exams/createExamInfo', payload: { values: { ...messageBody } } });
           message.success('Добавлено');
         } else {
-          messageBody.id = attestation.id;
-          dispatch({ type: 'attestations/updateAttestation', payload: { values: { ...messageBody } } });
+          messageBody.id = examInfo.id;
+          dispatch({ type: 'exams/updateExamInfo', payload: { values: { ...messageBody } } });
           message.success('Изменено');
         }
 
-        dispatch({ type: 'switches/switchDisciplineForm', payload: { mode: null } });
+        dispatch({ type: 'switches/switchExamInfoForm', payload: { mode: null } });
         form.resetFields();
       }
     });
@@ -52,19 +57,18 @@ class ExamInfoModalForm extends Component {
 
     form.resetFields();
 
-    dispatch({ type: 'switches/switchDisciplineForm', payload: { mode: null } });
+    dispatch({ type: 'switches/switchExamInfoForm', payload: { mode: null } });
   }
 
   render() {
     const {
-      visible, form, academicDepartaments, dispatch, attestation, mode,
+      visible, form, examInfo, mode, students,
     } = this.props;
     const { getFieldDecorator } = form;
-
     return (
       <Modal
         visible={visible}
-        title="Новая дисциплина"
+        title={mode === formModes.new ? 'Новый отчет по студенту' : 'Редактировать отчет по студенту'}
         onOk={this.handleOk}
         onCancel={this.handleCancel}
         footer={[
@@ -78,27 +82,24 @@ class ExamInfoModalForm extends Component {
       >
         <Form onSubmit={this.onSubmitClick}>
           <Form.Item label="Студент" {...smaleItemLayout}>
-            {getFieldDecorator('academicDepartament', {
+            {getFieldDecorator('studentId', {
               rules: [
                 {
                   required: true,
-                  message: 'введите кафедру',
+                  message: 'выберите студента',
                 },
               ],
-              initialValue: mode === formModes.edit ? attestation.academicDiscipline.academicDepartamentCode : null,
+              initialValue: mode === formModes.edit ? examInfo.student.id : null,
             })(
               <Select
-                name="disciplineCode"
-                placeholder="выберите кафедру"
-                onChange={(e) => {
-                  dispatch({ type: 'academicDisciplines/getDisciplinesByDepartamentCode', payload: { code: e } });
-                }}
+                name="studentId"
+                placeholder="выберите студента"
               >
-                {academicDepartaments.map(academicDepartament => (
-                  <Select.Option value={academicDepartament.code} key={academicDepartament.code}>
-                    {academicDepartament.name}
+                {students.list !== null ? students.list.map(student => (
+                  <Select.Option value={student.id} key={student.id}>
+                    {`${student.lastName} ${student.firstName} ${student.middleName}`}
                   </Select.Option>
-                ))}
+                )) : ''}
               </Select>,
             )}
           </Form.Item>
@@ -106,26 +107,26 @@ class ExamInfoModalForm extends Component {
             {getFieldDecorator('date', {
               rules: [
                 {
-                  required: true,
-                  message: 'введите дату проведения',
+                  required: false,
+                  message: 'введите дату сдачи',
                 },
               ],
-              initialValue: mode === formModes.edit ? moment(attestation.date) : null,
+              initialValue: mode === formModes.edit ? moment(examInfo.date) : null,
             })(
-              <DatePicker name="issueDate" />,
+              <DatePicker name="date" />,
             )}
           </Form.Item>
           <Form.Item label="Баллы" {...smaleItemLayout}>
-            {getFieldDecorator('hoursCount', {
+            {getFieldDecorator('score', {
               rules: [
                 {
                   required: true,
-                  message: 'введите количество часов',
+                  message: 'введите количество баллов',
                 },
               ],
-              initialValue: mode === formModes.edit ? attestation.hoursCount : null,
+              initialValue: mode === formModes.edit ? examInfo.score : null,
             })(
-              <InputNumber name="HoursCount" />,
+              <InputNumber name="score" />,
             )}
           </Form.Item>
         </Form>

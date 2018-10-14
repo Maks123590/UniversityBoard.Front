@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Layout from '../../layouts/Layout';
 import GroupsMenu from './components/GroupsMenu';
 import DisciplineModalForm from './components/DisciplinesMenu/conponents/DisciplineModalForm';
+import ExamInfoModalForm from './components/ExamInfoModalForm/index';
 
 
 class Exams extends PureComponent {
@@ -12,6 +13,7 @@ class Exams extends PureComponent {
       <Layout location={location}>
         <GroupsMenu />
         <DisciplineModalForm />
+        <ExamInfoModalForm />
       </Layout>
     );
   }

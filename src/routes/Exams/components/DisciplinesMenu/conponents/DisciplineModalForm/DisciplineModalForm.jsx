@@ -65,7 +65,7 @@ class GroupModalForm extends Component {
     return (
       <Modal
         visible={visible}
-        title="Новая дисциплина"
+        title={mode === formModes.new ? 'Новая дисциплина' : 'Редактировать аттестацию'}
         onOk={this.handleOk}
         onCancel={this.handleCancel}
         footer={[
@@ -108,7 +108,7 @@ class GroupModalForm extends Component {
               rules: [
                 {
                   required: true,
-                  message: 'введите направление',
+                  message: 'выберите дисциплину',
                 },
               ],
               initialValue: mode === formModes.edit ? attestation.academicDiscipline.disciplineCode : null,

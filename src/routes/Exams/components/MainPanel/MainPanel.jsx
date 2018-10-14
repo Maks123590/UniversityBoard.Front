@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import { Divider } from 'antd';
 import LevelDiagramm from './components/LevelDiagramm';
@@ -7,28 +7,18 @@ import ExamInfoPanel from './components/ExamInfoPanel';
 
 import styles from './MainPanel.less';
 
-class MainPanel extends PureComponent {
-  constructor(props) {
-    super(props);
-    console.log('test');
-    // this.selectTab = this.selectTab.bind(this);
-  }
-
-  render() {
-    return (
-      <div className={styles.mainPanel} style={{ width: '100%' }}>
-        <div className={styles.panelsWrapper}>
-          <ExamInfoPanel />
-          <LevelDiagramm />
-        </div>
-        <Divider />
-        <div>
-          <ResultTable />
-        </div>
-      </div>
-    );
-  }
-}
+const MainPanel = () => (
+  <div className={styles.mainPanel} style={{ width: '100%' }}>
+    <div className={styles.panelsWrapper}>
+      <ExamInfoPanel />
+      <LevelDiagramm />
+    </div>
+    <Divider />
+    <div>
+      <ResultTable />
+    </div>
+  </div>
+);
 
 MainPanel.propTypes = {
   // dispatch: PropTypes.func.isRequired,

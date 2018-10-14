@@ -13,6 +13,10 @@ export default {
       visible: false,
       mode: null, // 0 - for new, 1 - for edit
     },
+    examInfoForm: {
+      visible: false,
+      mode: null, // 0 - for new, 1 - for edit
+    },
   },
 
   reducers: {
@@ -48,6 +52,15 @@ export default {
         ...state,
         disciplineForm: {
           visible: !state.disciplineForm.visible,
+          mode,
+        },
+      };
+    },
+    switchExamInfoForm(state, { payload: { mode } }) {
+      return {
+        ...state,
+        examInfoForm: {
+          visible: !state.examInfoForm.visible,
           mode,
         },
       };
