@@ -22,6 +22,7 @@ class GroupsList extends Component {
           pagination={{ pageSize: 8 }}
           bordered={false}
           loading={groups.list === null}
+          rowKey="id"
           footer={() => (
             <Button
               type="secondary"

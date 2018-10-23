@@ -182,8 +182,6 @@ class GroupModalForm extends Component {
 GroupModalForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  student: PropTypes.shape({ id: PropTypes.number }).isRequired,
-  groups: PropTypes.shape({ list: PropTypes.instanceOf(Array).isRequired }).isRequired,
   form: PropTypes.shape({ getFieldDecorator: PropTypes.func }).isRequired,
 };
 

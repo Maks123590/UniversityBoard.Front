@@ -62,7 +62,7 @@ GroupsMenu.propTypes = {
 };
 
 GroupsMenu.defaultProps = {
-  groupMenuActiveKey: '1',
+  groupMenuActiveKey: 1,
 };
 
 export default GroupsMenu;

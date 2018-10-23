@@ -138,8 +138,6 @@ class ExamInfoModalForm extends Component {
 ExamInfoModalForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  student: PropTypes.shape({ id: PropTypes.number }).isRequired,
-  groups: PropTypes.shape({ list: PropTypes.instanceOf(Array).isRequired }).isRequired,
   form: PropTypes.shape({ getFieldDecorator: PropTypes.func }).isRequired,
 };
 

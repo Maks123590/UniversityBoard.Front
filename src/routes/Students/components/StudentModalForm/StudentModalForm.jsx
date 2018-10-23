@@ -195,8 +195,14 @@ StudentModalForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
   student: PropTypes.shape({ id: PropTypes.number }).isRequired,
-  groups: PropTypes.shape({ list: PropTypes.instanceOf(Array).isRequired }).isRequired,
+  groups: PropTypes.shape({ list: PropTypes.instanceOf(Array) }),
   form: PropTypes.shape({ getFieldDecorator: PropTypes.func }).isRequired,
+};
+
+StudentModalForm.defaultProps = {
+  groups: {
+    list: [],
+  },
 };
 
 export default Form.create()(StudentModalForm);

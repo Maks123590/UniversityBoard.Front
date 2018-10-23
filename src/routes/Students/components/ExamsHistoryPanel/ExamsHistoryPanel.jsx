@@ -19,6 +19,10 @@ class ExamsHistoryPanel extends Component {
         return '#fde910';
       }
 
+      if (score > 51) {
+        return 'blue';
+      }
+
       return 'red';
     }
 
@@ -45,7 +49,7 @@ class ExamsHistoryPanel extends Component {
           {examInfoList.length === 0 ? 'Нет данных' : <div />}
           <Timeline>
             {examInfoList.map((examInfo) => {
-              if (examInfo.appraisalType === 2) {
+              if (examInfo.appraisalType === 1) {
                 return (
                   <Timeline.Item color="blue" key={examInfo.id}>
                     {`${moment(examInfo.date).format('MM.DD.YYYY')} - ${examInfo.academicDiscipline.disciplineCode}: ${examInfo.academicDiscipline.name} - Зачет с результатом - ${examInfo.setOff ? 'Зачтено' : 'Не зачтено'} (${examInfo.score} баллов)`}

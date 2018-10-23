@@ -25,9 +25,6 @@ class Exams extends PureComponent {
 }
 
 Exams.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
   students: PropTypes.instanceOf(Object).isRequired,
 };
 

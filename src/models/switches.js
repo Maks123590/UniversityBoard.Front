@@ -1,7 +1,7 @@
 export default {
   namespace: 'switches',
   state: {
-    groupMenuActiveKey: 1,
+    groupMenuActiveKey: '1',
     historyPanelVisible: false,
     studentFrom: false,
     groupInfoPanel: false,
