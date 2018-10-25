@@ -12,12 +12,6 @@ class GroupsMenu extends PureComponent {
     this.selectTab = this.selectTab.bind(this);
   }
 
-  componentDidMount() {
-    const { dispatch, groupMenuActiveKey } = this.props;
-    // dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { groupMenuActiveKey } });
-    dispatch({ type: 'attestations/getAttestationsByGroupId', payload: { groupId: groupMenuActiveKey } });
-  }
-
   selectTab(activeKey) {
     const { dispatch } = this.props;
     dispatch({ type: 'switches/setGroupMenuActiveKey', payload: { activeKey } });

@@ -67,6 +67,9 @@ export default {
     * getGroups(_, { call, put }) {
       const { data: groupsList } = yield call(groupsServices.getGroups, {});
 
+      yield put({ type: 'switches/setGroupMenuActiveKey', payload: { activeKey: groupsList[0].id } });
+      yield put({ type: 'attestations/getAttestationsByGroupId', payload: { groupId: groupsList[0].id } });
+
       yield put({ type: 'saveGroups', payload: { groups: groupsList } });
     },
     * getGroup({ payload: { id } }, { call, put }) {
